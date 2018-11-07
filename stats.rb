@@ -3,7 +3,12 @@
 
 require 'pp'
 require 'ripper'
-require 'colorize'  # gem install colorize
+
+
+def blue(s); "\033[34m#{s}\033[0m"; end
+def green(s); "\033[32m#{s}\033[0m"; end
+def yellow(s); "\033[33m#{s}\033[0m"; end
+def red(s); "\033[31m#{s}\033[0m"; end
 
 
 # Return an array of line numbers.
@@ -43,7 +48,7 @@ def analyse path
   classes = commands.select{ |c| c[0] == :class }
 
   classes.each do |klass|
-    puts "Found class #{klass[1][1][1].blue}"
+    puts "Found class #{blue klass[1][1][1]}"
 
     bodystmt = klass.find{ |item| item.is_a?(Array) && item[0] == :bodystmt }
     commands = bodystmt[1]
@@ -71,11 +76,11 @@ def analyse path
 
     stats.each do |stat|
       if stat[:line_count] <= 15
-        print '✔'.green
+        print green('✔')
       elsif stat[:line_count] <= 30
-        print '✔'.yellow
+        print yellow('✔')
       else
-        print '✘'.red
+        print red('✘')
       end
 
       print " " + stat[:line_count].to_s.rjust(3, ' ') + " "
