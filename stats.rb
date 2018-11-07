@@ -54,7 +54,7 @@ def analyse path
     commands = bodystmt[1]
 
     defs = commands.select{ |c| c[0] == :def }
-    puts "Found #{defs.size} methods"
+    puts "Found #{defs.size} instance methods"
 
     stats = []
 
